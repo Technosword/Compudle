@@ -5,9 +5,11 @@ import java.awt.*;
 
 public class Game {
     private String correctWord;
+    private GameStatus gameStatus;
 
     public Game(){
         createGuiWindow();
+        gameStatus = GameStatus.PLAYING;
     }
     public void createGuiWindow(){
         //Create the frame
