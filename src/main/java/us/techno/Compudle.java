@@ -3,8 +3,6 @@ package us.techno;
 import us.techno.game.Game;
 import us.techno.utils.WordChecker;
 
-import javax.swing.*;
-import java.awt.*;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
