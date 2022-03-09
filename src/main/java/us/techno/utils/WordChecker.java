@@ -45,8 +45,10 @@ public class WordChecker {
                 isCorrect = true;
                 isPresent = true;
             }
-            if (correctWord.indexOf(character) != -1) isPresent = true;
-            if (characterFrequency.get(character) > 1) isDuplicate = true;
+            if (characterFrequency.get(character) != null) {
+                isPresent = true;
+                if (characterFrequency.get(character) > 1) isDuplicate = true;
+            }
             resultList.add(new LetterPosition(character, isPresent, isCorrect, isDuplicate)) ;
         }
         return resultList;
