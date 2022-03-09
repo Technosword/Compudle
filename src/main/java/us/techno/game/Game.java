@@ -1,5 +1,6 @@
 package us.techno.game;
 
+import us.techno.listeners.KeyPressListener;
 import us.techno.utils.WordChecker;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class Game {
         //Create the frame
         JFrame frame = new JFrame("Compudle");
         frame.setLayout(new GridLayout(3, 1));
+        frame.addKeyListener(new KeyPressListener());
 
         JLabel label = new JLabel("Compudle", SwingConstants.CENTER);
         label.setPreferredSize(new Dimension(300, 200));
@@ -34,9 +36,9 @@ public class Game {
         label.setFont(new Font("Georgia", Font.PLAIN, 50));
         frame.add(label);
 
-        JPanel controlPanel = new JPanel();
-        controlPanel.setLayout(new FlowLayout());
-        frame.add(controlPanel);
+        JPanel grid = new JPanel();
+        grid.setLayout(new GridLayout(6,5,3,3));
+        frame.add(grid);
 
         JTextField guesser = new JTextField("Guess your answer", SwingConstants.BOTTOM);
         guesser.setHorizontalAlignment(SwingConstants.CENTER);

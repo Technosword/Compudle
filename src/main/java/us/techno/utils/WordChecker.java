@@ -33,10 +33,10 @@ public class WordChecker {
     public static List<LetterPosition> checkWord(Game game, String guess) {
         String correctWord = game.getCorrectWord();
         List<LetterPosition> resultList = new ArrayList<>();
-        Map<Character, Long> characterFrequency = guess.chars()
+        Map<Character, Long> characterFrequency = correctWord.chars()
                 .mapToObj(c -> (char) c)
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
-        for (int i = 0; i < game.getCorrectWord().length(); i++) {
+        for (int i = 0; i < correctWord.length(); i++) {
             boolean isPresent = false;
             boolean isCorrect = false;
             boolean isDuplicate = false;
@@ -45,9 +45,8 @@ public class WordChecker {
                 isCorrect = true;
                 isPresent = true;
             }
-            if (characterFrequency.get(character) > 1) {
-                isDuplicate = true;
-            }
+            if (correctWord.indexOf(character) != -1) isPresent = true;
+            if (characterFrequency.get(character) > 1) isDuplicate = true;
             resultList.add(new LetterPosition(character, isPresent, isCorrect, isDuplicate)) ;
         }
         return resultList;
