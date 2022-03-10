@@ -1,5 +1,6 @@
 package us.techno.game;
 
+import us.techno.listeners.KeyPressListener;
 import us.techno.utils.WordChecker;
 
 import javax.swing.*;
@@ -7,6 +8,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class Game {
     private String correctWord;
@@ -14,6 +16,8 @@ public class Game {
     private String[] guesses;
     private static Game game;
     private JLabel[] squares = new JLabel[30];
+    private int squareIndex = 0;
+    private boolean canEditGuess = true;
     private final String[] alphabet = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
             "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"};
     private final Font georgia = new Font("Georgia", Font.PLAIN, 50);
@@ -30,6 +34,7 @@ public class Game {
     static Color green = new Color(83, 141, 79);
     static Color darkGray = new Color(59, 59, 60);
     static Color offWhite = new Color(255, 255, 242);
+    static Color blue = new Color(56, 76, 189); //our new color for duplicate letters
 
     public Game(){
         createGuiWindow();
@@ -48,15 +53,16 @@ public class Game {
         frame.setLayout(null);
         frame.getContentPane().setBackground(dark);
         frame.setLocationRelativeTo(null);
+        frame.addKeyListener(new KeyPressListener());
 
 
         titlePanel = new JPanel();
         titlePanel.setBounds(0, 5, frame.getWidth(), 50);
-        titlePanel.setLayout(new BorderLayout(0, 10));
+        titlePanel.setLayout(new BorderLayout(42, 10));
         titlePanel.setBorder(new MatteBorder(0, 0, 2, 0, darkGray));
         titlePanel.setBackground(dark);
 
-        headingLabel = new JLabel("COMPUDLE", SwingConstants.CENTER);
+        headingLabel = new JLabel("COMPUDLE", SwingConstants.LEFT);
         headingLabel.setFont(georgia);
         headingLabel.setBounds(125,40, 125, 35);
         headingLabel.setForeground(offWhite);
@@ -68,7 +74,7 @@ public class Game {
         helpButton.setBackground(dark);
         helpButton.setBorderPainted(false);
         titlePanel.add(helpButton, BorderLayout.WEST);
-        titlePanel.add(headingLabel, BorderLayout.CENTER);
+        titlePanel.add(headingLabel);
 
 
         JPanel grid = new JPanel();
@@ -87,32 +93,9 @@ public class Game {
             grid.add(squares[i]);
         }
 
-        JTextField guesser = new JTextField("Guess your answer", SwingConstants.BOTTOM);
-        guesser.setHorizontalAlignment(SwingConstants.CENTER);
-        guesser.setSize(frame.getWidth(), 50);
-        guesser.setBounds(250, 450, 50, 50);
-        guesser.addActionListener(e -> {
-            String data = "Guess: " + guesser.getText();
-            System.out.println(data);
-            try {
-                boolean result = WordChecker.verifyWordWithDictionary(guesser.getText());
-                System.out.println(result);
-                if (!result){
-                    System.out.println("Not a word :|");
-                    return;
-                }
-            } catch (URISyntaxException ex) {
-                ex.printStackTrace();
-            }
-            WordChecker.checkWord(Game.getGame(), guesser.getText()).forEach(letterPosition ->
-                    System.out.println(letterPosition.getCharacter().toString() + letterPosition.getCorrect() + letterPosition.getPresent() + letterPosition.getDuplicate()));
-        });
-
         frame.add(titlePanel);
         frame.add(grid);
-        frame.add(guesser);
         frame.setVisible(true);
-        System.out.println(headingLabel.getWidth() + " " + headingLabel.getX());
     }
 
     public void setGameStatus(GameStatus gameStatus) {
@@ -141,5 +124,42 @@ public class Game {
 
     public static Game getGame() {
         return game;
+    }
+
+    public JLabel[] getSquares(){
+        return squares;
+    }
+
+    public int getSquareIndex() {
+        return squareIndex;
+    }
+
+    public void setSquareIndex(int squareIndex) {
+        this.squareIndex = squareIndex;
+    }
+
+    public String[] getAlphabet() {
+        return alphabet;
+    }
+
+    public void guess(int index) throws URISyntaxException {
+        if (index > 29) return; //should never happen, but this would be pretty bad!
+        StringBuilder guess = new StringBuilder();
+        System.out.println("Made it to guess function" + index);
+        int i = index - 4;
+        while (i <= index) {
+            guess.append(squares[i].getText());
+            i++;
+        }
+        if (!WordChecker.verifyWordWithDictionary(guess.toString())) return;
+        List<LetterPosition> letterPositionList = WordChecker.checkWord(this, guess.toString());
+    }
+
+    public boolean isCanEditGuess() {
+        return canEditGuess;
+    }
+
+    public void setCanEditGuess(boolean canEditGuess) {
+        this.canEditGuess = canEditGuess;
     }
 }
