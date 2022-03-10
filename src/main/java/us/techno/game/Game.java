@@ -52,11 +52,11 @@ public class Game {
 
         titlePanel = new JPanel();
         titlePanel.setBounds(0, 5, frame.getWidth(), 50);
-        titlePanel.setLayout(new BorderLayout(50, 10));
+        titlePanel.setLayout(new BorderLayout(0, 10));
         titlePanel.setBorder(new MatteBorder(0, 0, 2, 0, darkGray));
         titlePanel.setBackground(dark);
 
-        headingLabel = new JLabel("WORDLE", SwingConstants.CENTER);
+        headingLabel = new JLabel("COMPUDLE", SwingConstants.CENTER);
         headingLabel.setFont(georgia);
         headingLabel.setBounds(125,40, 125, 35);
         headingLabel.setForeground(offWhite);
@@ -67,8 +67,8 @@ public class Game {
         helpButton.setFocusable(false);
         helpButton.setBackground(dark);
         helpButton.setBorderPainted(false);
-        titlePanel.add(headingLabel);
         titlePanel.add(helpButton, BorderLayout.WEST);
+        titlePanel.add(headingLabel, BorderLayout.CENTER);
 
 
         JPanel grid = new JPanel();
