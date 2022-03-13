@@ -31,7 +31,7 @@ public class WordChecker {
         return found.getOpaque();
     }
     public static List<LetterPosition> checkWord(Game game, String guess) {
-        String correctWord = game.getCorrectWord();
+        String correctWord = game.getCorrectWord().toUpperCase();
         List<LetterPosition> resultList = new ArrayList<>();
         Map<Character, Long> characterFrequency = correctWord.chars()
                 .mapToObj(c -> (char) c)

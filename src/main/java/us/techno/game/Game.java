@@ -2,26 +2,31 @@ package us.techno.game;
 
 import us.techno.listeners.KeyPressListener;
 import us.techno.utils.WordChecker;
+import us.techno.utils.WordPicker;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Game {
     private String correctWord;
     private GameStatus gameStatus;
     private String[] guesses;
     private static Game game;
-    private JLabel[] squares = new JLabel[30];
+    private final JLabel[] squares = new JLabel[30];
     private int squareIndex = 0;
     private boolean canEditGuess = true;
     private final String[] alphabet = { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
             "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"};
     private final Font georgia = new Font("Georgia", Font.PLAIN, 50);
     JPanel titlePanel;
+    JFrame frame;
     JLabel headingLabel;
     JButton helpButton;
 
@@ -39,13 +44,18 @@ public class Game {
     public Game(){
         createGuiWindow();
         gameStatus = GameStatus.PLAYING;
-        correctWord = "later";
+        try {
+            correctWord = WordPicker.pickNewWord();
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        }
+        if (correctWord == null) throw new RuntimeException("No word created!");
         game = this;
     }
 
     public void createGuiWindow(){
         //Create the frame
-        JFrame frame = new JFrame("Compudle");
+        frame = new JFrame("Compudle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFont(georgia);
         frame.setSize(500, 700);
@@ -98,6 +108,58 @@ public class Game {
         frame.setVisible(true);
     }
 
+    public void guess(int index) throws URISyntaxException {
+        if (index > 29 || index < 0){
+            throw new IndexOutOfBoundsException("Index not in bounds for amount of squares"); //should never happen, but this would be pretty bad! This means somehow we're guessing outside the grid.
+        }
+
+        StringBuilder guess = new StringBuilder();
+        List<JLabel> labelList = new ArrayList<>();
+
+        int i = index - 4;
+        while (i <= index) {
+            guess.append(squares[i].getText());
+            labelList.add(squares[i]);
+            i++;
+        }
+        if (!WordChecker.verifyWordWithDictionary(guess.toString())) {
+            JOptionPane.showMessageDialog(frame, "This isn't a word!",
+                    "Word Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        List<LetterPosition> letterPositionList = WordChecker.checkWord(this, guess.toString());
+
+        java.awt.EventQueue.invokeLater(() -> {
+            int x = 0;
+            while (x < letterPositionList.size()) {
+                LetterPosition letterPosition = letterPositionList.get(x);
+                JLabel square = labelList.get(x);
+                if (letterPosition.getCorrect()){
+                    square.setBackground(green);
+                } else if (letterPosition.getPresent()){
+                    square.setBackground(yellow);
+                } else {
+                    square.setBackground(lightGray);
+                }
+                if (letterPosition.getDuplicate()) square.setBorder(new LineBorder(blue, 4));
+                x++;
+            }
+        });
+
+        if (guess.toString().equalsIgnoreCase(correctWord)) {
+            setGameStatus(GameStatus.WIN);
+            JOptionPane.showMessageDialog(frame, "You won!");
+            return;
+        }
+        if (index == 29) {
+            setGameStatus(GameStatus.LOSS);
+            JOptionPane.showMessageDialog(frame, "You lost!");
+            return;
+        }
+        setSquareIndex(getSquareIndex() + 1);
+        setCanEditGuess(true);
+    }
+
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
@@ -140,19 +202,6 @@ public class Game {
 
     public String[] getAlphabet() {
         return alphabet;
-    }
-
-    public void guess(int index) throws URISyntaxException {
-        if (index > 29) return; //should never happen, but this would be pretty bad!
-        StringBuilder guess = new StringBuilder();
-        System.out.println("Made it to guess function" + index);
-        int i = index - 4;
-        while (i <= index) {
-            guess.append(squares[i].getText());
-            i++;
-        }
-        if (!WordChecker.verifyWordWithDictionary(guess.toString())) return;
-        List<LetterPosition> letterPositionList = WordChecker.checkWord(this, guess.toString());
     }
 
     public boolean isCanEditGuess() {

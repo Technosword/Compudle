@@ -22,14 +22,17 @@ public class KeyPressListener implements KeyListener {
                 if (game.getGameStatus() != GameStatus.PLAYING) return;
                 int index = game.getSquareIndex();
                 String keyPressed = String.valueOf(e.getKeyChar()).toUpperCase(Locale.ROOT);
+                boolean isTimeToGuess = index == 4 || index == 9 || index == 14 || index == 19 || index == 24 || index == 29;
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        try {
-                                game.guess(index);
-                        } catch (URISyntaxException ex) {
-                                ex.printStackTrace();
-                                //this shouldn't happen but you never know!
+                        if (isTimeToGuess) {
+                                try {
+                                        game.guess(index);
+                                } catch (URISyntaxException ex) {
+                                        ex.printStackTrace();
+                                        //this shouldn't happen but you never know!
+                                }
+                                return;
                         }
-                        return;
                 }
                 if (!game.isCanEditGuess()) return;
                 if (!Arrays.stream(game.getAlphabet()).toList().contains(keyPressed)) {
@@ -37,7 +40,7 @@ public class KeyPressListener implements KeyListener {
                 }
                 JLabel square = Arrays.stream(game.getSquares()).toList().get(index);
                 square.setText(keyPressed);
-                if (index == 4 || index == 9 || index == 14 || index == 19 || index == 24 ) {
+                if (isTimeToGuess) {
                         game.setCanEditGuess(false);
                         return;
                 }
