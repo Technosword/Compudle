@@ -1,7 +1,6 @@
 package us.techno.game;
 
 import us.techno.listeners.KeyPressListener;
-import us.techno.utils.WikipediaHook;
 import us.techno.utils.WordChecker;
 import us.techno.utils.WordPicker;
 
@@ -12,8 +11,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class Game {
     private String correctWord;
@@ -46,7 +45,7 @@ public class Game {
         createGuiWindow();
         gameStatus = GameStatus.PLAYING;
         try {
-            correctWord = WordPicker.pickNewWord();
+            setCorrectWord(WordPicker.pickNewWord());
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
@@ -147,24 +146,16 @@ public class Game {
             }
         });
 
+        Arrays.stream(getGuesses()).toList().add(guess.toString());
+
         if (guess.toString().equalsIgnoreCase(correctWord)) {
             setGameStatus(GameStatus.WIN);
             JOptionPane.showMessageDialog(frame, "You won!");
-            try {
-                WikipediaHook.getWikipediaPage(getCorrectWord());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return;
         }
-        if (index == 29) {
+        if (getGuesses().length <= 6) {
             setGameStatus(GameStatus.LOSS);
             JOptionPane.showMessageDialog(frame, "You lost!");
-            try {
-                WikipediaHook.getWikipediaPage(getCorrectWord());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return;
         }
         setSquareIndex(getSquareIndex() + 1);
@@ -181,10 +172,6 @@ public class Game {
 
     public String[] getGuesses() {
         return guesses;
-    }
-
-    public void setGuesses(String[] guesses) {
-        this.guesses = guesses;
     }
 
     public String getCorrectWord() {
