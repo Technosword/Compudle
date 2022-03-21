@@ -23,7 +23,6 @@ public class KeyPressListener implements KeyListener {
                 int index = game.getSquareIndex();
                 String keyPressed = String.valueOf(e.getKeyChar()).toUpperCase(Locale.ROOT);
                 boolean isTimeToGuess = index == 4 || index == 9 || index == 14 || index == 19 || index == 24 || index == 29;
-                System.out.println(index);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                         if (isTimeToGuess) {
                                 try {

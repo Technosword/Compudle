@@ -1,6 +1,7 @@
 package us.techno.game;
 
 import us.techno.listeners.KeyPressListener;
+import us.techno.utils.WikipediaHook;
 import us.techno.utils.WordChecker;
 import us.techno.utils.WordPicker;
 
@@ -149,11 +150,21 @@ public class Game {
         if (guess.toString().equalsIgnoreCase(correctWord)) {
             setGameStatus(GameStatus.WIN);
             JOptionPane.showMessageDialog(frame, "You won!");
+            try {
+                WikipediaHook.getWikipediaPage(getCorrectWord());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
         }
         if (index == 29) {
             setGameStatus(GameStatus.LOSS);
             JOptionPane.showMessageDialog(frame, "You lost!");
+            try {
+                WikipediaHook.getWikipediaPage(getCorrectWord());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return;
         }
         setSquareIndex(getSquareIndex() + 1);
