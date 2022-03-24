@@ -109,7 +109,7 @@ public class Game {
     }
 
     public void guess(int index) throws URISyntaxException {
-        if (index > 29 || index < 0){
+        if (index > 29 || index < 0) {
             throw new IndexOutOfBoundsException("Index not in bounds for amount of squares"); //should never happen, but this would be pretty bad! This means somehow we're guessing outside the grid.
         }
 
@@ -153,6 +153,7 @@ public class Game {
             JOptionPane.showMessageDialog(frame, "You won!");
             return;
         }
+
         if (getGuesses().length <= 6) {
             setGameStatus(GameStatus.LOSS);
             JOptionPane.showMessageDialog(frame, "You lost!");
