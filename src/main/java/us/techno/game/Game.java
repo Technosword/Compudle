@@ -123,7 +123,7 @@ public class Game {
             i++;
         }
         if (!WordChecker.verifyWordWithDictionary(guess.toString())) {
-            JOptionPane.showMessageDialog(frame, "This isn't a word!",
+            JOptionPane.showMessageDialog(frame, "Not in word list!",
                     "Word Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
