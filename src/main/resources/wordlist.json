@@ -1,211 +1,52 @@
-{"wordlist": [
-  {
-  "word": "wires",
-  "definition": "Computers use wires all the time! Wires connect mice, keyboards, and even other computers to computers."
-  },
-  {
-  "word": "smart",
-  "definition": "To be in Computer Science you've got to be smart!"
-  },
-  {
-  "word": "apple",
-  "definition": "One of the biggest tech giants in the world."
-  },
-  {
-  "word": "cache",
-  "definition": ""
-  },
-  {
-  "word": "debug",
-  "definition": ""
-  },
-  {
-  "word": "ascii",
-  "definition": ""
-  },
-  {
-  "word": "basic",
-  "definition": ""
-  },
-  {
-  "word": "click",
-  "definition": ""
-  },
-  {
-  "word": "crash",
-  "definition": ""
-  },
-  {
-  "word": "email",
-  "definition": ""
-  },
-  {
-  "word": "excel",
-  "definition": ""
-  },
-  {
-  "word": "flash",
-  "definition": ""
-  },
-  {
-  "word": "forum",
-  "definition": ""
-  },
-  {
-  "word": "frame",
-  "definition": ""
-  },
-  {
-  "word": "input",
-  "definition": ""
-  },
-  {
-  "word": "image",
-  "definition": ""
-  },
-  {
-    "word": "logic",
-    "definition": ""
-  },
-  {
-    "word": "layer",
-    "definition": ""
-  },
-  {
-    "word": "login",
-    "definition": ""
-  },
-  {
-    "word": "logon",
-    "definition": ""
-  },
-  {
-    "word": "modem",
-    "definition": ""
-  },
-  {
-    "word": "mouse",
-    "definition": ""
-  },
-  {
-    "word": "paint",
-    "definition": ""
-  },
-  {
-    "word": "panel",
-    "definition": ""
-  },
-  {
-    "word": "pixel",
-    "definition": ""
-  },
-  {
-    "word": "proxy",
-    "definition": ""
-  },
-  {
-    "word": "query",
-    "definition": ""
-  },
-  {
-    "word": "queue",
-    "definition": ""
-  },
-  {
-    "word": "robot",
-    "definition": ""
-  },
-  {
-    "word": "stats",
-    "definition": ""
-  },
-  {
-    "word": "tweet",
-    "definition": ""
-  },  {
-    "word": "spams",
-    "definition": ""
-  },
-  {
-    "word": "virus",
-    "definition": ""
-  },  {
-    "word": "unzip",
-    "definition": ""
-  },
-  {
-    "word": "viral",
-    "definition": ""
-  },  {
-    "word": "bytes",
-    "definition": ""
-  },
-  {
-    "word": "cloud",
-    "definition": ""
-  },
-  {
-    "word": "asset",
-    "definition": ""
-  },
-  {
-    "word": "files",
-    "definition": ""
-  },
-  {
-    "word": "fonts",
-    "definition": ""
-  },
-  {
-    "word": "disks",
-    "definition": ""
-  },
-  {
-    "word": "linux",
-    "definition": ""
-  },
-  {
-    "word": "menus",
-    "definition": ""
-  },
-  {
-    "word": "pages",
-    "definition": ""
-  },
-  {
-    "word": "phish",
-    "definition": ""
-  },
-  {
-    "word": "pings",
-    "definition": ""
-  },
-  {
-    "word": "posts",
-    "definition": ""
-  },
-  {
-    "word": "token",
-    "definition": ""
-  },
-  {
-    "word": "table",
-    "definition": ""
-  },
-  {
-    "word": "worms",
-    "definition": ""
-  }
-]
+{
+  "wires": "Definition",
+  "smart": "Definition",
+  "apple": "Definition",
+  "cache": "Definition",
+  "debug": "Definition",
+  "ascii": "Definition",
+  "basic": "Definition",
+  "click": "Definition",
+  "crash": "Definition",
+  "email": "Definition",
+  "excel": "Definition",
+  "flash": "Definition",
+  "forum": "Definition",
+  "frame": "Definition",
+  "input": "Definition",
+  "image": "Definition",
+  "logic": "Definition",
+  "layer": "Definition",
+  "login": "Definition",
+  "logon": "Definition",
+  "modem": "Definition",
+  "mouse": "Definition",
+  "paint": "Definition",
+  "panel": "Definition",
+  "pixel": "Definition",
+  "proxy": "Definition",
+  "query": "Definition",
+  "queue": "Definition",
+  "robot": "Definition",
+  "stats": "Definition",
+  "tweet": "Definition",
+  "virus": "Definition",
+  "spams": "Definition",
+  "unzip": "Definition",
+  "viral": "Definition",
+  "bytes": "Definition",
+  "cloud": "Definition",
+  "asset": "Definition",
+  "files": "Definition",
+  "fonts": "Definition",
+  "disks": "Definition",
+  "linux": "Definition",
+  "menus": "Definition",
+  "pages": "Definition",
+  "phish": "Definition",
+  "pings": "Definition",
+  "posts": "Definition",
+  "token": "Definition",
+  "table": "Definition",
+  "worms": "Definition"
 }
-
-
-
-
-
-
-
-
-
-
-

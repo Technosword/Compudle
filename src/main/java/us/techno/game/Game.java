@@ -11,13 +11,11 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Game {
     private String correctWord;
     private GameStatus gameStatus;
-    private String[] guesses;
     private static Game game;
     private final JLabel[] squares = new JLabel[30];
     private int squareIndex = 0;
@@ -58,7 +56,7 @@ public class Game {
         frame = new JFrame("Compudle");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFont(georgia);
-        frame.setSize(500, 700);
+        frame.setSize(500, 550);
         frame.setResizable(false);
         frame.setLayout(null);
         frame.getContentPane().setBackground(dark);
@@ -146,17 +144,15 @@ public class Game {
             }
         });
 
-        Arrays.stream(getGuesses()).toList().add(guess.toString());
-
         if (guess.toString().equalsIgnoreCase(correctWord)) {
-            setGameStatus(GameStatus.WIN);
             JOptionPane.showMessageDialog(frame, "You won!");
+            setGameStatus(GameStatus.WIN);
             return;
         }
 
-        if (getGuesses().length <= 6) {
-            setGameStatus(GameStatus.LOSS);
+        if (index == 29) /*final square*/ {
             JOptionPane.showMessageDialog(frame, "You lost!");
+            setGameStatus(GameStatus.LOSS);
             return;
         }
         setSquareIndex(getSquareIndex() + 1);
@@ -165,14 +161,22 @@ public class Game {
 
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
+        if (gameStatus != GameStatus.PLAYING) {
+            try {
+                defineWord();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void defineWord() throws URISyntaxException {
+        JOptionPane.showMessageDialog(frame, "Thanks for playing Compudle! The word was " + getCorrectWord() + ". \nDefinition: " + WordPicker.getDefinition(getCorrectWord()),
+                "What does this word mean?", JOptionPane.QUESTION_MESSAGE);
     }
 
     public GameStatus getGameStatus() {
         return gameStatus;
-    }
-
-    public String[] getGuesses() {
-        return guesses;
     }
 
     public String getCorrectWord() {
