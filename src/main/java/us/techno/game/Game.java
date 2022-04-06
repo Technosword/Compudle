@@ -1,5 +1,6 @@
 package us.techno.game;
 
+import us.techno.listeners.ActionListener;
 import us.techno.listeners.KeyPressListener;
 import us.techno.utils.WordChecker;
 import us.techno.utils.WordPicker;
@@ -26,7 +27,7 @@ public class Game {
     JPanel titlePanel;
     JFrame frame;
     JLabel headingLabel;
-    JButton helpButton;
+    JButton playAgainButton;
 
     /*
     Some Colors, taken from nyt site
@@ -75,13 +76,14 @@ public class Game {
         headingLabel.setBounds(125,40, 125, 35);
         headingLabel.setForeground(offWhite);
 
-        helpButton = new JButton("?");
-        helpButton.setFont(georgia);
-        helpButton.setForeground(offWhite);
-        helpButton.setFocusable(false);
-        helpButton.setBackground(dark);
-        helpButton.setBorderPainted(false);
-        titlePanel.add(helpButton, BorderLayout.WEST);
+        playAgainButton = new JButton("P");
+        playAgainButton.setFont(georgia);
+        playAgainButton.setForeground(offWhite);
+        playAgainButton.setFocusable(false);
+        playAgainButton.setBackground(dark);
+        playAgainButton.setBorderPainted(false);
+        playAgainButton.addActionListener(new ActionListener());
+        titlePanel.add(playAgainButton, BorderLayout.WEST);
         titlePanel.add(headingLabel);
 
 
@@ -191,6 +193,13 @@ public class Game {
         return game;
     }
 
+    public void newGame() {
+        frame.setVisible(false);
+        game = null;
+        Game newInstance = new Game();
+    }
+
+
     public JLabel[] getSquares(){
         return squares;
     }
@@ -213,5 +222,9 @@ public class Game {
 
     public void setCanEditGuess(boolean canEditGuess) {
         this.canEditGuess = canEditGuess;
+    }
+
+    public JButton getPlayAgainButton() {
+        return playAgainButton;
     }
 }
