@@ -25,7 +25,7 @@ public class WordPicker {
         int random = new Random().nextInt(array.length - 1);
         Object wordObj = array[random];
         if (wordObj instanceof String) {
-            //System.out.println("DEBUG: " + wordObj);
+            System.out.println("DEBUG: " + wordObj);
             return (String) wordObj;
         }
         return null;
