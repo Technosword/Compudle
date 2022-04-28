@@ -1,7 +1,7 @@
 package us.techno.game;
 
-import us.techno.listeners.ActionListener;
-import us.techno.listeners.KeyPressListener;
+import us.techno.events.ActionListener;
+import us.techno.events.KeyPressListener;
 import us.techno.utils.WordChecker;
 import us.techno.utils.WordPicker;
 
@@ -199,7 +199,6 @@ public class Game {
         Game newInstance = new Game();
     }
 
-
     public JLabel[] getSquares(){
         return squares;
     }
@@ -227,4 +226,5 @@ public class Game {
     public JButton getPlayAgainButton() {
         return playAgainButton;
     }
+
 }
