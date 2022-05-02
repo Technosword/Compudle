@@ -108,17 +108,15 @@ public class Game {
         frame.setVisible(true);
     }
 
-    public void guess(int index) throws URISyntaxException {
+    public void processGuess(int index, String guess) throws URISyntaxException {
         if (index > 29 || index < 0) {
             throw new IndexOutOfBoundsException("Index not in bounds for amount of squares"); //should never happen, but this would be pretty bad! This means somehow we're guessing outside the grid.
         }
 
-        StringBuilder guess = new StringBuilder();
         List<JLabel> labelList = new ArrayList<>();
 
         int i = index - 4;
         while (i <= index) {
-            guess.append(squares[i].getText());
             labelList.add(squares[i]);
             i++;
         }

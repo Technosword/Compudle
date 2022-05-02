@@ -7,7 +7,9 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class EventHandler {
@@ -27,7 +29,14 @@ public class EventHandler {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 if (isTimeToGuess) {
                     try {
-                        game.guess(index);
+                        StringBuilder guess = new StringBuilder();
+                        List<JLabel> squares = Arrays.stream(game.getSquares()).toList();
+
+                        for (int i = index - 4; i <= index; i++){
+                            guess.append(squares.get(i).getText());
+                        }
+
+                        game.processGuess(index, guess.toString());
                     } catch (URISyntaxException ex) {
                         ex.printStackTrace();
                         //this shouldn't happen but you never know!
